@@ -41,20 +41,11 @@ import {Wrapper} from "@/app/Wrapper";
 import {Item} from "@/app/Item";
 
 export interface Props {
-  activationConstraint?: PointerActivationConstraint;
-  animateLayoutChanges?: AnimateLayoutChanges;
-  adjustScale?: boolean;
   collisionDetection?: CollisionDetection;
-  coordinateGetter?: KeyboardCoordinateGetter;
   Container?: any; // To-do: Fix me
-  dropAnimation?: DropAnimation | null;
-  getNewIndex?: NewIndexGetter;
   handle?: boolean;
   itemCount?: number;
   items?: UniqueIdentifier[];
-  measuring?: MeasuringConfiguration;
-  modifiers?: Modifiers;
-  renderItem?: any;
   removable?: boolean;
   reorderItems?: typeof arrayMove;
   strategy?: SortingStrategy;
@@ -89,15 +80,11 @@ export function Sortable({
                            Container = List,
                            collisionDetection = closestCenter,
                            getItemStyles = () => ({}),
-                           getNewIndex,
                            handle = false,
                            itemCount = 16,
                            items: initialItems,
                            isDisabled = () => false,
-                           measuring,
-                           modifiers,
                            removable,
-                           renderItem,
                            reorderItems = arrayMove,
                            strategy = rectSortingStrategy,
                            style,
@@ -189,8 +176,6 @@ export function Sortable({
         }
       }}
       onDragCancel={() => setActiveId(null)}
-      measuring={measuring}
-      modifiers={modifiers}
     >
       <Wrapper style={style} center>
         <SortableContext items={items} strategy={strategy}>
@@ -204,9 +189,7 @@ export function Sortable({
                 style={getItemStyles}
                 wrapperStyle={wrapperStyle}
                 disabled={isDisabled(value)}
-                renderItem={renderItem}
                 onRemove={handleRemove}
-                getNewIndex={getNewIndex}
               />
             ))}
           </Container>
@@ -217,27 +200,22 @@ export function Sortable({
 }
 
 interface SortableItemProps {
-  animateLayoutChanges?: AnimateLayoutChanges;
   disabled?: boolean;
-  getNewIndex?: NewIndexGetter;
   id: UniqueIdentifier;
   index: number;
   handle: boolean;
   onRemove?(id: UniqueIdentifier): void;
   style(values: any): React.CSSProperties;
-  renderItem?(args: any): React.ReactElement;
   wrapperStyle: Props['wrapperStyle'];
 }
 
 export function SortableItem({
                                disabled,
-                               getNewIndex,
                                handle,
                                id,
                                index,
                                onRemove,
                                style,
-                               renderItem,
                                wrapperStyle,
                              }: SortableItemProps) {
   const {
@@ -254,7 +232,6 @@ export function SortableItem({
   } = useSortable({
     id,
     disabled,
-    getNewIndex,
   });
 
   return (
@@ -272,7 +249,6 @@ export function SortableItem({
           }
           : undefined
       }
-      renderItem={renderItem}
       index={index}
       style={style({
         index,

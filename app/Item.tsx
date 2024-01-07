@@ -26,18 +26,6 @@ export interface Props {
   wrapperStyle?: React.CSSProperties;
   value: React.ReactNode;
   onRemove?(): void;
-  renderItem?(args: {
-    dragging: boolean;
-    sorting: boolean;
-    index: number | undefined;
-    fadeIn: boolean;
-    listeners: DraggableSyntheticListeners;
-    ref: React.Ref<HTMLElement>;
-    style: React.CSSProperties | undefined;
-    transform: Props['transform'];
-    transition: Props['transition'];
-    value: Props['value'];
-  }): React.ReactElement;
 }
 
 export const Item = React.memo(
@@ -54,7 +42,6 @@ export const Item = React.memo(
         index,
         listeners,
         onRemove,
-        renderItem,
         sorting,
         style,
         transition,
@@ -66,20 +53,7 @@ export const Item = React.memo(
       ref
     ) => {
 
-      return renderItem ? (
-        renderItem({
-          dragging: Boolean(dragging),
-          sorting: Boolean(sorting),
-          index,
-          fadeIn: Boolean(fadeIn),
-          listeners,
-          ref,
-          style,
-          transform,
-          transition,
-          value,
-        })
-      ) : (
+      return  (
         <li
           className={classNames(
             styles.Wrapper,
