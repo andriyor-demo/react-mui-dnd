@@ -1,16 +1,8 @@
 'use client';
+import React from 'react';
 
-import {Sortable, Props as SortableProps} from "@/app/Sortable";
-import {verticalListSortingStrategy} from "@dnd-kit/sortable";
-
-
-const props: Partial<SortableProps> = {
-  strategy: verticalListSortingStrategy,
-  itemCount: 50,
-};
+import { Sortable } from '@/app/Sortable';
 
 export default function Home() {
-  return (
-   <div> <Sortable {...props} handle  /></div>
-  )
+  return <Sortable />;
 }
