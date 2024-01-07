@@ -86,8 +86,6 @@ const screenReaderInstructions: ScreenReaderInstructions = {
 };
 
 export function Sortable({
-                           activationConstraint,
-                           animateLayoutChanges,
                            Container = List,
                            collisionDetection = closestCenter,
                            getItemStyles = () => ({}),
@@ -208,7 +206,6 @@ export function Sortable({
                 disabled={isDisabled(value)}
                 renderItem={renderItem}
                 onRemove={handleRemove}
-                animateLayoutChanges={animateLayoutChanges}
                 getNewIndex={getNewIndex}
               />
             ))}
@@ -234,7 +231,6 @@ interface SortableItemProps {
 
 export function SortableItem({
                                disabled,
-                               animateLayoutChanges,
                                getNewIndex,
                                handle,
                                id,
@@ -257,7 +253,6 @@ export function SortableItem({
     transition,
   } = useSortable({
     id,
-    animateLayoutChanges,
     disabled,
     getNewIndex,
   });
